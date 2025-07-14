@@ -4,260 +4,522 @@
 @tailwind utilities;
 
 :root {
-  /* Light theme colors matching the loan dashboard */
-  --background: #f8fafc;
-  --foreground: #1e293b;
+  /* Enhanced fintech color palette */
+  --background: #fafbfc;
+  --foreground: #1a202c;
   --card-background: #ffffff;
   --border-color: #e2e8f0;
-  --primary-blue: #3b82f6;
-  --success-green: #10b981;
-  --warning-orange: #f59e0b;
-  --error-red: #ef4444;
+  --primary-blue: #2563eb;
+  --primary-blue-hover: #1d4ed8;
+  --success-green: #059669;
+  --warning-orange: #d97706;
+  --error-red: #dc2626;
   --text-muted: #64748b;
   --text-secondary: #475569;
   --hover-gray: #f1f5f9;
   --active-blue: #dbeafe;
   --pending-orange: #fef3c7;
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-warning: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 body, html {
-  background-color: var(--background) !important;
+  background: var(--background) !important;
   color: var(--foreground) !important;
   min-height: 100vh;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--hover-gray);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
 }
 
 @layer base {
-  /* Reset the global black theme */
-  * {
-    background-color: transparent !important;
-    color: inherit !important;
-    border-color: var(--border-color) !important;
+  /* Enhanced animations */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-  
-  /* Main container styling */
-  .dashboard-container {
-    background-color: var(--background) !important;
-    color: var(--foreground) !important;
-    padding: 1.5rem;
-    min-height: 100vh;
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
-  
-  /* Card styling */
-  .card, .loan-card {
-    background-color: var(--card-background) !important;
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(37, 99, 235, 0);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: calc(200px + 100%) 0;
+    }
+  }
+
+  .animate-slide-up {
+    animation: slideInUp 0.5s ease-out;
+  }
+
+  .animate-slide-right {
+    animation: slideInRight 0.5s ease-out;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s infinite;
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Enhanced card styling */
+  .fintech-card {
+    background: var(--card-background) !important;
     border: 1px solid var(--border-color) !important;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Header styling */
-  .header {
-    background-color: var(--card-background) !important;
-    border-bottom: 1px solid var(--border-color) !important;
-    padding: 1rem 1.5rem;
-  }
-  
-  /* Navigation and buttons */
-  .nav-button, .back-button {
-    background-color: transparent !important;
-    color: var(--text-secondary) !important;
-    border: none !important;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.2s;
-  }
-  
-  .nav-button:hover, .back-button:hover {
-    background-color: var(--hover-gray) !important;
-  }
-  
-  /* Status badges */
-  .status-active {
-    background-color: var(--success-green) !important;
-    color: white !important;
-    padding: 0.25rem 0.75rem;
-    border-radius: 1rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
-  
-  .status-pending {
-    background-color: var(--warning-orange) !important;
-    color: white !important;
-    padding: 0.25rem 0.75rem;
-    border-radius: 1rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
-  
-  /* Loan amount styling */
-  .loan-amount {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary-blue) !important;
-  }
-  
-  .outstanding-amount {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--error-red) !important;
-  }
-  
-  .interest-rate {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--success-green) !important;
-  }
-  
-  /* Progress bar */
-  .progress-container {
-    background-color: var(--border-color) !important;
-    height: 0.5rem;
-    border-radius: 0.25rem;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
     overflow: hidden;
   }
-  
-  .progress-bar {
-    background-color: var(--primary-blue) !important;
-    height: 100%;
-    transition: width 0.3s ease;
+
+  .fintech-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-  
-  /* Sidebar styling */
-  .sidebar {
-    background-color: var(--card-background) !important;
-    border-right: 1px solid var(--border-color) !important;
-    padding: 1.5rem;
+
+  .fintech-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
   }
-  
-  .sidebar-item {
-    background-color: transparent !important;
-    color: var(--text-secondary) !important;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    margin-bottom: 0.5rem;
-    transition: all 0.2s;
+
+  .fintech-card:hover::before {
+    opacity: 1;
   }
-  
-  .sidebar-item:hover {
-    background-color: var(--hover-gray) !important;
-  }
-  
-  .sidebar-item.active {
-    background-color: var(--active-blue) !important;
-    color: var(--primary-blue) !important;
-  }
-  
-  /* Tab navigation */
-  .tab-container {
+
+  /* Enhanced navigation */
+  .nav-enhanced {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color) !important;
-    background-color: transparent !important;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
   }
-  
-  .tab-button {
-    background-color: transparent !important;
-    color: var(--text-muted) !important;
+
+  .nav-button-enhanced {
+    background: transparent !important;
+    color: var(--text-secondary) !important;
     border: none !important;
-    padding: 0.75rem 1rem;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
+    padding: 12px 16px;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
   }
-  
-  .tab-button:hover {
-    color: var(--text-secondary) !important;
+
+  .nav-button-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
+    transition: left 0.5s;
   }
-  
-  .tab-button.active {
-    color: var(--primary-blue) !important;
-    border-bottom-color: var(--primary-blue) !important;
-  }
-  
-  /* Text styling */
-  .text-muted {
-    color: var(--text-muted) !important;
-  }
-  
-  .text-secondary {
-    color: var(--text-secondary) !important;
-  }
-  
-  .text-primary {
+
+  .nav-button-enhanced:hover {
+    background: var(--hover-gray) !important;
+    transform: translateY(-1px);
     color: var(--primary-blue) !important;
   }
-  
-  .text-success {
-    color: var(--success-green) !important;
+
+  .nav-button-enhanced:hover::before {
+    left: 100%;
   }
-  
-  .text-error {
-    color: var(--error-red) !important;
-  }
-  
-  /* Summary section styling */
-  .summary-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin: 1.5rem 0;
-  }
-  
-  .summary-item {
-    text-align: center;
-    padding: 1rem;
-  }
-  
-  .summary-label {
-    color: var(--text-muted) !important;
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .summary-value {
-    font-size: 1.5rem;
+
+  /* Enhanced status badges */
+  .status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
-  
-  /* Next payment section */
-  .payment-section {
-    background-color: var(--card-background) !important;
+
+  .status-active {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  }
+
+  .status-pending {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  }
+
+  .status-completed {
+    background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  }
+
+  .status-defaulted {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  }
+
+  /* Enhanced metric displays */
+  .metric-card {
+    background: var(--card-background) !important;
     border: 1px solid var(--border-color) !important;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    margin-top: 1.5rem;
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
   }
-  
-  .payment-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border-color);
+
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
   }
-  
-  .payment-info:last-child {
-    border-bottom: none;
+
+  .metric-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--shadow-xl);
   }
-  
-  .payment-label {
-    color: var(--text-secondary) !important;
-    font-weight: 500;
+
+  .metric-card:hover::before {
+    opacity: 0.05;
   }
-  
-  .payment-value {
-    font-weight: 600;
+
+  .metric-card > * {
+    position: relative;
+    z-index: 1;
   }
-  
-  /* Icons */
-  .icon {
-    width: 1.25rem;
-    height: 1.25rem;
+
+  .metric-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .metric-label {
     color: var(--text-muted) !important;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
-  
-  .icon-primary {
-    color: var(--primary-blue) !important;
+
+  /* Enhanced search form */
+  .search-container {
+    background: var(--card-background) !important;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .search-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+  }
+
+  .search-input {
+    border: 2px solid var(--border-color) !important;
+    border-radius: 16px !important;
+    padding: 16px 20px !important;
+    font-size: 16px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    background: var(--card-background) !important;
+    color: var(--foreground) !important;
+  }
+
+  .search-input:focus {
+    border-color: var(--primary-blue) !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+    transform: translateY(-2px) !important;
+  }
+
+  .search-button {
+    background: var(--gradient-primary) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 16px !important;
+    padding: 16px 32px !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .search-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .search-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: var(--shadow-lg) !important;
+  }
+
+  .search-button:hover::before {
+    left: 100%;
+  }
+
+  .search-button:disabled {
+    opacity: 0.7;
+    transform: none !important;
+  }
+
+  /* Enhanced progress indicators */
+  .progress-container {
+    background: var(--border-color) !important;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-bar {
+    background: var(--gradient-success) !important;
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.2) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0.2) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 50px 50px;
+    animation: move 2s linear infinite;
+  }
+
+  @keyframes move {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 50px 50px;
+    }
+  }
+
+  /* Enhanced table styling */
+  .enhanced-table {
+    background: var(--card-background) !important;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+  }
+
+  .enhanced-table th {
+    background: var(--hover-gray) !important;
+    color: var(--text-secondary) !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+    padding: 16px !important;
+  }
+
+  .enhanced-table td {
+    padding: 16px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    transition: background-color 0.2s ease;
+  }
+
+  .enhanced-table tr:hover td {
+    background: var(--hover-gray) !important;
+  }
+
+  /* Enhanced loading states */
+  .loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+  }
+
+  /* Enhanced interactive elements */
+  .interactive-element {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .interactive-element:hover {
+    transform: translateY(-2px);
+  }
+
+  .interactive-element:active {
+    transform: translateY(0);
+  }
+
+  /* Enhanced glass morphism effects */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  /* Enhanced gradient text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Enhanced floating action button */
+  .fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+  }
+
+  .fab:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-xl);
+  }
+
+  /* Enhanced notification styles */
+  .notification {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow-lg);
+    animation: slideInRight 0.3s ease-out;
+  }
+
+  /* Enhanced responsive design */
+  @media (max-width: 768px) {
+    .fintech-card {
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+    }
+
+    .search-container {
+      padding: 24px;
+      border-radius: 16px;
+    }
   }
 }
