@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Database, Play, Code, History, BookOpen } from "lucide-react";
+import { Database, Play, Code, History } from "lucide-react";
 
 interface FormValues {
   text_query: string;
@@ -54,18 +54,18 @@ export default function QueryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 p-6">
+    <div className="min-h-screen bg-slate-50 p-6">
       <div className="max-w-6xl mx-auto space-y-8">
         
         {/* Header */}
-        <div className="text-center animate-slide-up">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full mb-4">
+        <div className="text-center fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-4">
             <Database className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl font-bold gradient-text mb-2">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">
             SQL Query Interface
           </h1>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <p className="text-slate-600 max-w-2xl mx-auto">
             Execute custom database queries to analyze loan data and generate insights
           </p>
         </div>
@@ -73,38 +73,38 @@ export default function QueryPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Query Input Section */}
-          <div className="lg:col-span-2 animate-slide-up" style={{animationDelay: '0.1s'}}>
-            <Card className="fintech-card">
+          <div className="lg:col-span-2 fade-in">
+            <Card className="card-enhanced">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Code className="w-5 h-5 text-purple-600" />
+                  <Code className="w-5 h-5 text-slate-600" />
                   <span>Query Editor</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">
+                    <label className="text-sm font-medium text-slate-700">
                       SQL Query
                     </label>
                     <textarea
                       {...register("text_query", { required: true })}
-                      className="w-full h-40 p-4 border-2 border-gray-200 rounded-xl font-mono text-sm resize-none focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all duration-300 bg-gray-50"
+                      className="w-full h-40 p-4 border border-slate-200 rounded-lg font-mono text-sm resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all bg-white"
                       placeholder="Enter your SQL query here...
 Example: SELECT * FROM tblLoan WHERE isActive = 1 LIMIT 10"
                     />
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-slate-500">
                       Query length: {queryValue.length} characters
                     </div>
                     <Button 
                       type="submit" 
                       disabled={!queryValue.trim()}
-                      className="search-button group"
+                      className="button-primary"
                     >
-                      <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                      <Play className="w-4 h-4" />
                       Execute Query
                     </Button>
                   </div>
@@ -113,27 +113,24 @@ Example: SELECT * FROM tblLoan WHERE isActive = 1 LIMIT 10"
             </Card>
 
             {/* Query Tips */}
-            <Card className="fintech-card mt-6">
+            <Card className="card-enhanced mt-6">
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <BookOpen className="w-5 h-5 text-blue-600" />
-                  <span>Query Tips</span>
-                </CardTitle>
+                <CardTitle className="text-lg">Query Tips</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <h4 className="font-semibold text-gray-800">Available Tables</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• <code className="bg-gray-100 px-1 rounded">tblLoan</code> - Loan records</li>
-                      <li>• <code className="bg-gray-100 px-1 rounded">tblClient</code> - Customer data</li>
-                      <li>• <code className="bg-gray-100 px-1 rounded">tblMobile</code> - Phone numbers</li>
-                      <li>• <code className="bg-gray-100 px-1 rounded">tblPersonMobile</code> - Person-phone mapping</li>
+                    <h4 className="font-semibold text-slate-800">Available Tables</h4>
+                    <ul className="text-sm text-slate-600 space-y-1">
+                      <li>• <code className="bg-slate-100 px-1 rounded">tblLoan</code> - Loan records</li>
+                      <li>• <code className="bg-slate-100 px-1 rounded">tblClient</code> - Customer data</li>
+                      <li>• <code className="bg-slate-100 px-1 rounded">tblMobile</code> - Phone numbers</li>
+                      <li>• <code className="bg-slate-100 px-1 rounded">tblPersonMobile</code> - Person-phone mapping</li>
                     </ul>
                   </div>
                   <div className="space-y-2">
-                    <h4 className="font-semibold text-gray-800">Best Practices</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
+                    <h4 className="font-semibold text-slate-800">Best Practices</h4>
+                    <ul className="text-sm text-slate-600 space-y-1">
                       <li>• Always use LIMIT for large datasets</li>
                       <li>• Use WHERE clauses to filter results</li>
                       <li>• Be careful with UPDATE/DELETE queries</li>
@@ -146,11 +143,11 @@ Example: SELECT * FROM tblLoan WHERE isActive = 1 LIMIT 10"
           </div>
 
           {/* Sample Queries */}
-          <div className="animate-slide-up" style={{animationDelay: '0.2s'}}>
-            <Card className="fintech-card">
+          <div className="fade-in">
+            <Card className="card-enhanced">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <History className="w-5 h-5 text-green-600" />
+                  <History className="w-5 h-5 text-slate-600" />
                   <span>Sample Queries</span>
                 </CardTitle>
               </CardHeader>
@@ -158,41 +155,18 @@ Example: SELECT * FROM tblLoan WHERE isActive = 1 LIMIT 10"
                 {sampleQueries.map((sample, index) => (
                   <div 
                     key={sample.title}
-                    className="p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors cursor-pointer group"
+                    className="p-4 border border-slate-200 rounded-lg hover:border-slate-300 transition-colors cursor-pointer"
                     onClick={() => handleSampleQuery(sample.query)}
                   >
-                    <h4 className="font-semibold text-gray-800 group-hover:text-purple-600 transition-colors">
+                    <h4 className="font-semibold text-slate-800 hover:text-blue-600 transition-colors">
                       {sample.title}
                     </h4>
-                    <p className="text-sm text-gray-600 mb-2">{sample.description}</p>
-                    <code className="text-xs bg-gray-100 p-2 rounded block font-mono text-gray-700 group-hover:bg-purple-50 transition-colors">
+                    <p className="text-sm text-slate-600 mb-2">{sample.description}</p>
+                    <code className="text-xs bg-slate-100 p-2 rounded block font-mono text-slate-700">
                       {sample.query}
                     </code>
                   </div>
                 ))}
-              </CardContent>
-            </Card>
-
-            {/* Query Statistics */}
-            <Card className="fintech-card mt-6">
-              <CardHeader>
-                <CardTitle>Query Statistics</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Queries Today</span>
-                    <span className="font-semibold">47</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Avg. Execution Time</span>
-                    <span className="font-semibold">0.23s</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Success Rate</span>
-                    <span className="font-semibold text-green-600">98.5%</span>
-                  </div>
-                </div>
               </CardContent>
             </Card>
           </div>
