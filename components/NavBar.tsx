@@ -1,40 +1,33 @@
 import React from "react";
 import Link from "next/link";
-import { PiFileSqlFill } from "react-icons/pi";
-import { MdDashboard } from "react-icons/md";
+import { LayoutGrid, Database } from "lucide-react";
 
 const NavBar = () => {
   return (
-    <nav className="nav-enhanced flex items-center justify-between px-6 h-16 sticky top-0 z-50">
-      <div className="flex items-center space-x-8">
+    <nav className="flex items-center justify-between px-6 py-4 bg-white border-b">
+      <Link 
+        href="/" 
+        className="text-xl font-semibold text-gray-900 hover:text-blue-600 transition-colors"
+      >
+        AbhiLoans
+      </Link>
+      
+      <div className="flex items-center space-x-6">
         <Link 
-          href="/" 
-          className="text-2xl font-bold text-slate-900 hover:text-blue-600 transition-colors"
+          href="/dashboard" 
+          className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
         >
-          AbhiLoans
+          <LayoutGrid className="w-4 h-4" />
+          <span>Dashboard</span>
+        </Link>
+        <Link 
+          href="/query" 
+          className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+        >
+          <Database className="w-4 h-4" />
+          <span>Query</span>
         </Link>
       </div>
-      
-      <ul className="flex items-center space-x-2">
-        <li>
-          <Link 
-            href="/dashboard" 
-            className="nav-link"
-          >
-            <MdDashboard className="text-lg" />
-            <span className="hidden sm:inline">Dashboard</span>
-          </Link>
-        </li>
-        <li>
-          <Link 
-            href="/query" 
-            className="nav-link"
-          >
-            <PiFileSqlFill className="text-lg" />
-            <span className="hidden sm:inline">Query</span>
-          </Link>
-        </li>
-      </ul>
     </nav>
   );
 };
